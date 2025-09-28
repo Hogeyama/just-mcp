@@ -2,6 +2,12 @@
 ## Usage
 
 ```
+$ cat .envrc
+export MCP_JUST_COMMAND='chrome-devtools-mcp -e /home/hogeyama/.nix-profile/bin/google-chrome-stable'
+export MCP_JUST_SLUG='test'
+```
+
+```
 Hogeyama: justfileを使って、http://localhost:8000/test-page.html の概要を調べて
 
 GitHub Copilot: まず、justfileの内容を確認して、利用可能なコマンドを調べてみます。

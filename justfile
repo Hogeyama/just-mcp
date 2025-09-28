@@ -5,8 +5,8 @@
 #   just tools                                            # list tools
 #   just tool new_page <<<'{"url":"https://example.com"}' # Use tool
 
-mcp := env('MCP_JUST_COMMAND', 'chrome-devtools-mcp -e /home/hogeyama/.nix-profile/bin/google-chrome-stable')
-slug := env('MCP_JUST_SLUG', 'chrome-devtools-mcp')
+mcp := env('MCP_JUST_COMMAND')
+slug := env('MCP_JUST_SLUG')
 
 default: help
 
@@ -23,8 +23,6 @@ help:
     @echo "使用例:"
     @echo "  just init            # サーバー起動"
     @echo "  just tools           # ツール一覧"
-    @echo "  just tool new_page <<<'{\"url\":\"https://example.com\"}'  # 新しいページを作成"
-    @echo "  just tool take_screenshot <<<'{}'                          # スクリーンショットを撮影"
     @echo "  just stop            # サーバー停止"
 
 # 利用可能なツール一覧を表示
@@ -60,7 +58,7 @@ tool TOOL_NAME:
          -H "Content-Type: application/json" \
          -d "{\"name\": \"{{ TOOL_NAME }}\", \"arguments\": $ARGS}")
     text=$(echo "$resp" | jq -r '.result.content[0].text')
-    if [[ $? -ne 0 ]] || [[ "$text" == null ]] ; then
+    if [[ $? -ne 0 ]] || [[ "$text" == 'null' ]] || [[ "$text" == '{}' ]]; then
       echo "$resp"
     else
       echo "$text"
